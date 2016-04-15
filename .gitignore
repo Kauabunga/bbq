@@ -17,11 +17,14 @@ coverage
 
 
 # Cordova - ignore everything?
+
 # platforms/
 !platforms/platforms.json
 !platforms/android/*
->>>>>>> Stashed changes
 plugins/
+
+
+
 
 
 # iOS
@@ -42,6 +45,10 @@ platforms/android/CordovaLib/ant-gen
 platforms/android/CordovaLib/bin
 platforms/android/CordovaLib/gen
 platforms/android/CordovaLib/local.properties
+
+platforms/android/.gradle/
+platforms/android/.idea/
+platforms/android/CordovaLib/build/
 
 # wp8
 platforms/wp8/bin
