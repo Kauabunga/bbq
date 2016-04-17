@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/cb1406/dev/bbq/platforms/android/CordovaLib/assets"/></dataSet><dataSet config="debug"><source path="/Users/cb1406/dev/bbq/platforms/android/CordovaLib/src/debug/assets"/></dataSet></merger>
