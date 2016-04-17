@@ -20,7 +20,6 @@ coverage
 
 # platforms/
 !platforms/platforms.json
-!platforms/android/*
 plugins/
 
 
