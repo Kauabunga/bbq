@@ -22,16 +22,29 @@
           div(ng-message='feedback') Looks like something went wrong trying to submit your feedback. Try again.
 
 
-      md-input-container.optional
+      .check-box-container
+        md-checkbox.optional(ng-model="addTheirDetails" aria-label="Add their details")
+          | Add
+          b &nbsp;their&nbsp;
+          | details
+
+
+        md-checkbox.optional(ng-model="addMyDetails" aria-label="Add my details")
+          | Add
+          b &nbsp;my&nbsp;
+          | details
+
+
+      md-input-container.optional(ng-if='addTheirDetails')
         label
         input(name='name' ng-model='name' autocomplete='off',
-        placeholder='{{namePlaceholder}}', ng-init='namePlaceholder = "Add details (Optional)"' ng-click='showDetails = namePlaceholder = "Name"')
+        placeholder='Their name')
 
 
-      md-input-container.optional(ng-if='showDetails')
+      md-input-container.optional(ng-if='addTheirDetails')
         label
         input(name='contact' ng-model='contact' autocomplete='off',
-        placeholder='Contact')
+        placeholder='Their contact (email/phone)')
 
 
       md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid}')
