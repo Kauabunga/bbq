@@ -12,6 +12,7 @@ angular.module('bbqApp')
         return init();
 
         function init(){
+
           scope.submitToken = _.throttle(submitToken, 2000, true);
           scope.submitEmail = submitEmail;
           scope.resendTokenEmail = _.throttle(resendTokenEmail, 2000, true);
