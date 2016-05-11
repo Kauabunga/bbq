@@ -15,7 +15,7 @@
         label
         input(name='email' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
-        placeholder='Enter your acc email' ng-disabled='! submitting')
+        placeholder='Enter your acc email')
 
         div(ng-show='(emailRegisterForm.$submitted) && ! emailRegisterForm.isEmailFocused'
         ng-messages="emailRegisterForm.email.$error")
@@ -59,7 +59,7 @@
         input.token-input(name='registerToken' ng-model='state.registerToken', required='true', type='number', autocomplete='off'
           ng-minlength='5' ng-maxlength='5' maxlength='5', pattern='[0-9]*' inputmode='numeric'
           ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
-          placeholder='Enter the 5 digit code', ng-disabled='submittingFirstToken')
+          placeholder='Enter the 5 digit code')
 
         div(ng-show='(tokenRegisterForm.$submitted) && ! tokenRegisterForm.isRegisterTokenFocused'
         ng-messages="tokenRegisterForm.registerToken.$error")
