@@ -14,9 +14,9 @@ export function sendTokenEmail({email, token}) {
 
 
     let mailOptions = {
-      from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
+      from: config.email.systemSenderEmailAddress || 'fixit@feedback.com',
       to: email,
-      subject: config.email.tokenSubject || 'Your BBQ token', // Subject line
+      subject: config.email.tokenSubject || 'Your Fixit token', // Subject line
       text: `Your token is: ${token}` // plaintext body
     };
 
@@ -37,9 +37,9 @@ export function sendFeedbackEmail({email, feedback, contact = 'empty', name = 'e
 
 
     let mailOptions = {
-      from: config.email.systemSenderEmailAddress || 'bbq@feedback.com',
+      from: config.email.systemSenderEmailAddress || 'fixit@feedback.com',
       to: config.email.endpointEmailAddress || email,
-      subject: config.email.feedbackSubject || 'BBQ Feedback Received',
+      subject: config.email.feedbackSubject || 'Fixit Feedback Received',
 
       text: `
       Name: ${name}
