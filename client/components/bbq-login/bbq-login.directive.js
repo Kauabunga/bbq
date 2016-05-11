@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService) {
+  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService, $sessionStorage) {
     return {
       templateUrl: 'components/bbq-login/bbq-login.html',
       restrict: 'EA',
