@@ -13,7 +13,7 @@ before_deploy:
 - grunt build
 - ls -ltra
 deploy:
-  app: acc-bbq
+  app: acc-bbq-dev
   provider: heroku
   skip_cleanup: true
   api_key:
