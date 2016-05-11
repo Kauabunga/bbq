@@ -19,7 +19,10 @@ function UtilService($window, appConfig) {
 
 
     getBaseApiUrl(){
-      return $window.location.hostname === 'localhost' ? '/' : appConfig.baseApiUrl;
+      //TODO what does this url look like inside a cordova application?
+      let hostname = $window.location.hostname;
+      return hostname.indexOf('acc-bbq') >= 0 || hostname === 'localhost' ?
+          '/' : appConfig.baseApiUrl;
     },
 
     /**
