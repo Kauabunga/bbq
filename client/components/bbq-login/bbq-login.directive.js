@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService, $sessionStorage) {
+  .directive('bbqLogin', function (Auth, $state, $log, $timeout, toastService, feedbackService, $localStorage) {
     return {
       templateUrl: 'components/bbq-login/bbq-login.html',
       restrict: 'EA',
@@ -13,7 +13,7 @@ angular.module('bbqApp')
 
         function init() {
 
-          scope.state = $sessionStorage.loginState = $sessionStorage.loginState || {};
+          scope.state = $localStorage.loginState = $localStorage.loginState || {};
 
           scope.submitToken = _.throttle(submitToken, 2000, true);
           scope.submitEmail = submitEmail;
@@ -56,7 +56,7 @@ angular.module('bbqApp')
               $log.debug('Successfully authenticated');
 
               $timeout(() => {
-                $sessionStorage.loginState = {};
+                $localStorage.loginState = {};
                 feedbackService.sync();
                 $timeout(gotoMain);
               });
