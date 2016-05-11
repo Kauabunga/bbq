@@ -76,10 +76,17 @@ angular.module('bbqApp')
     };
 
     this.getPublicKey = () => {
-      return $localStorage[FEEDBACK_PUBLIC_KEY_KEY] ? $q.when($localStorage[FEEDBACK_PUBLIC_KEY_KEY]) :
-        $http.get(FEEDBACK_PUBLIC_KEY_API)
+      return $http.get(FEEDBACK_PUBLIC_KEY_API)
           .then(response => {
             return $localStorage[FEEDBACK_PUBLIC_KEY_KEY] = response.data.publicKey;
+          })
+          .catch(err => {
+              if($localStorage[FEEDBACK_PUBLIC_KEY_KEY]){
+                  return $localStorage[FEEDBACK_PUBLIC_KEY_KEY];
+              }
+              else{
+                  throw err;
+              }
           });
     };
 
