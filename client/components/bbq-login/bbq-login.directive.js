@@ -72,7 +72,7 @@ angular.module('bbqApp')
         }
 
         function gotoMain(){
-          $state.go('main',{},{location:'replace'});
+          $state.go('main',{},{ location:'replace' });
         }
 
         function submitEmail(form, email){
@@ -82,7 +82,7 @@ angular.module('bbqApp')
           }
           else if(! scope.submitting ){
 
-            $timeout(() => analyticsService.trackEvent('Login', email));
+            $timeout(() => analyticsService.trackEvent('Login email attempt', email));
 
             scope.submitting = true;
             return Auth.sendTokenEmail({email})
@@ -90,15 +90,18 @@ angular.module('bbqApp')
                 $log.debug('response ', response, scope.emailRegisterForm);
                 scope.state.successfulTokenSent = true;
 
-                //TODO ?????
                 scope.state.email = email;
 
                 $timeout(() => {
                   scope.tokenTimedout = true;
                   scope.successfulResentToken = false;
+                  $timeout(() => analyticsService.trackEvent('Login email success', email));
                 }, TOKEN_TIMEOUT);
               })
-              .catch(handleErrorResponse)
+              .catch(response => {
+                $timeout(() => analyticsService.trackEvent('Login email failure', email));
+                return handleErrorResponse(response);
+              })
               .finally(() => {
                 scope.submitting = false;
               });
