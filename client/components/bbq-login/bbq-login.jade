@@ -61,7 +61,7 @@
           ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
           placeholder='Enter the 5 digit code')
 
-        div(ng-show='(tokenRegisterForm.$submitted) && ! tokenRegisterForm.isRegisterTokenFocused'
+        div(ng-show='(tokenRegisterForm.$submitted)'
         ng-messages="tokenRegisterForm.registerToken.$error")
           div(ng-message='required') You need to enter the code we sent you.
           div(ng-message='minlength') You haven't quite entered 5 digits
