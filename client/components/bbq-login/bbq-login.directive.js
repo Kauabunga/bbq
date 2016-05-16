@@ -81,6 +81,9 @@ angular.module('bbqApp')
             form.isEmailFocused = false;
           }
           else if(! scope.submitting ){
+
+            $timeout(() => analyticsService.trackEvent('Login', email));
+
             scope.submitting = true;
             return Auth.sendTokenEmail({email})
               .then(response => {
