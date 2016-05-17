@@ -41,10 +41,6 @@ angular.module('bbqApp')
       var queueLength = queue.length;
 
       if(queueLength < queueThrottleLength){
-        if($window._eab.clientLogEnabled){
-          //Need to log this @ warning level so selenium can pick it up
-          $log.warn('AnalyticsEvent: ' + eventObject.event + ' AnalyticsData: ' + JSON.stringify(eventObject.data));
-        }
         sendAndCleanEventFromQueue(eventObject);
       }
       else {
@@ -56,10 +52,8 @@ angular.module('bbqApp')
 
     function sendAndCleanEventFromQueue(eventObject){
 
-      if($window._eab.clientLogEnabled){
-        //Need to log this @ warning level so selenium can pick it up
-        $log.warn('AnalyticsEvent: ' + eventObject.event + ' AnalyticsData: ' + JSON.stringify(eventObject.data));
-      }
+      //Need to log this @ warning level so selenium can pick it up
+      $log.debug('AnalyticsEvent: ' + eventObject.event + ' AnalyticsData: ' + JSON.stringify(eventObject.data));
 
       $analytics.eventTrack(eventObject.event, eventObject.data);
 
