@@ -42,6 +42,7 @@
     "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
     "connect-livereload": "^0.5.3",
+    "dom-urls": "^1.1.0",
     "grunt": "~0.4.5",
     "grunt-angular-templates": "^1.0.3",
     "grunt-babel": "~6.0.0",
@@ -106,7 +107,7 @@
   },
   "engines": {
     "node": "^4.4.0",
-    "npm": "^3.10.8"
+    "npm": "^3.9.5"
   },
   "scripts": {
     "start": "node server",
