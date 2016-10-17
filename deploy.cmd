@@ -107,7 +107,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   call :ExecuteCmd !NPM_CMD! install -g bower grunt-cli --quiet
   call :ExecuteCmd !NPM_CMD! install
   call :ExecuteCmd !NPM_CMD! run bower
-  call :ExecuteCmd !NPM_CMD! run grunt
+  call :ExecuteCmd !NPM_CMD! run build
   IF !ERRORLEVEL! NEQ 0 goto error
 
   popd
