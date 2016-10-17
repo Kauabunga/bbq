@@ -104,19 +104,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   echo Handling node.js install.
   echo Handling node.js install.
   echo Handling node.js install.
-  call :ExecuteCmd !NPM_CMD! install
-  IF !ERRORLEVEL! NEQ 0 goto error
-
-  echo Handling node.js bower install.
-  echo Handling node.js bower install.
-  echo Handling node.js bower install.
-  call :ExecuteCmd !NPM_CMD! run bower
-  IF !ERRORLEVEL! NEQ 0 goto error
-
-  echo Handling node.js build.
-  echo Handling node.js build.
-  echo Handling node.js build.
-  call :ExecuteCmd !NPM_CMD! run build
+  call :ExecuteCmd !NPM_CMD! install --production
   IF !ERRORLEVEL! NEQ 0 goto error
 
   popd
