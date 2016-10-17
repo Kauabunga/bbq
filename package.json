@@ -99,6 +99,7 @@
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
     "requirejs": "~2.1.11",
+    "rimraf": "^2.5.4",
     "sinon": "^1.16.1",
     "sinon-chai": "^2.8.0",
     "supertest": "^1.1.0",
@@ -112,10 +113,10 @@
   "scripts": {
     "start": "node server",
     "bower": "bower install",
-    "build": "grunt build",
-    "heroku": "grunt build --force && grunt buildcontrol:heroku",
-    "android-dev": "grunt build && cordova run android",
-    "ios-dev": "grunt build && cordova run ios",
+    "build": "rimraf ./dist && grunt build",
+    "heroku": "npm run build && grunt buildcontrol:heroku",
+    "android-dev": "npm run build && cordova run android",
+    "ios-dev": "npm run build && cordova run ios",
     "test": "echo grunt test --force",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
