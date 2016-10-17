@@ -111,8 +111,8 @@
   "scripts": {
     "start": "node server",
     "bower": "bower install",
-    "build": "grunt build --force",
-    "heroku": "npm run build && grunt buildcontrol:heroku",
+    "build": "grunt build",
+    "heroku": "grunt build --force && grunt buildcontrol:heroku",
     "android-dev": "grunt build && cordova run android",
     "ios-dev": "grunt build && cordova run ios",
     "test": "echo grunt test --force",
