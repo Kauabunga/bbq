@@ -23,7 +23,7 @@ deploy:
     branch: heroku
 - provider: azure_web_apps
   site: acction
-  skip_cleanup: true
+  skip_cleanup: false
   verbose: false
   on:
     branch: azure
