@@ -104,6 +104,7 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   echo Handling node.js install.
   echo Handling node.js install.
   echo Handling node.js install.
+  call :ExecuteCmd !NPM_CMD! install -g npm
   call :ExecuteCmd !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
 
