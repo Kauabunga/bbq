@@ -104,10 +104,16 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   echo Handling node.js install.
   echo Handling node.js install.
   echo Handling node.js install.
-  call :ExecuteCmd !NPM_CMD! install -g bower grunt-cli --quiet
+  call :ExecuteCmd !NPM_CMD! install -g bower grunt --quiet
   call :ExecuteCmd !NPM_CMD! install
   call :ExecuteCmd !NPM_CMD! run bower
+
+  pushd ./node_modules/grunt
+  call :ExecuteCmd !NPM_CMD! install glob@^6.0.4 --save
+  popd
+
   call :ExecuteCmd !NPM_CMD! run build
+
   IF !ERRORLEVEL! NEQ 0 goto error
 
   popd
