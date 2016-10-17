@@ -27,7 +27,7 @@ deploy:
 - provider: azure_web_apps
   site: acction
   skip_cleanup: true
-  verbose: false
+  verbose: true
   on:
     branch: azure
 
