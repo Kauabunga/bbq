@@ -499,7 +499,7 @@ module.exports = function (grunt) {
         'newer:babel:client',
         'jade',
         'less',
-        'imagemin',
+        //'imagemin',
         'ngconstant:dist'
       ]
     },
