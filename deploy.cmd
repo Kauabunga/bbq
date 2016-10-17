@@ -104,7 +104,9 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   echo Handling node.js install.
   echo Handling node.js install.
   echo Handling node.js install.
-  call :ExecuteCmd !NPM_CMD! install --production
+  call :ExecuteCmd !NPM_CMD! install -g bower grunt-cli --quiet
+  call :ExecuteCmd !NPM_CMD! install
+  call :ExecuteCmd !NPM_CMD! run bower
   IF !ERRORLEVEL! NEQ 0 goto error
 
   popd
