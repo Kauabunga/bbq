@@ -63,7 +63,7 @@ IF DEFINED KUDU_SELECT_NODE_VERSION_CMD (
     SET /p NODE_EXE=<"%DEPLOYMENT_TEMP%\__nodeVersion.tmp"
     IF !ERRORLEVEL! NEQ 0 goto error
   )
-  
+
   IF EXIST "%DEPLOYMENT_TEMP%\__npmVersion.tmp" (
     SET /p NPM_JS_PATH=<"%DEPLOYMENT_TEMP%\__npmVersion.tmp"
     IF !ERRORLEVEL! NEQ 0 goto error
@@ -100,13 +100,27 @@ call :SelectNodeVersion
 :: 3. Install npm packages
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   pushd "%DEPLOYMENT_TARGET%"
+
+  echo Handling node.js production install.
   call :ExecuteCmd !NPM_CMD! install --production
+  IF !ERRORLEVEL! NEQ 0 goto error
+
+  echo Handling node.js development install.
   call :ExecuteCmd !NPM_CMD! install --development
   IF !ERRORLEVEL! NEQ 0 goto error
+
+  echo Handling node.js bower install.
+  call :ExecuteCmd !NPM_CMD! run bower
+  IF !ERRORLEVEL! NEQ 0 goto error
+
+  echo Handling node.js build.
+  call :ExecuteCmd !NPM_CMD! run build
+  IF !ERRORLEVEL! NEQ 0 goto error
+
   popd
 )
 
-echo Handling node.js deployment.
+
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
