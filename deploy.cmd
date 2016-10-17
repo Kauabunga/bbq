@@ -101,16 +101,10 @@ call :SelectNodeVersion
 IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   pushd "%DEPLOYMENT_TARGET%"
 
-  echo Handling node.js production install.
-  echo Handling node.js production install.
-  echo Handling node.js production install.
-  call :ExecuteCmd !NPM_CMD! install --production
-  IF !ERRORLEVEL! NEQ 0 goto error
-
-  echo Handling node.js development install.
-  echo Handling node.js development install.
-  echo Handling node.js development install.
-  call :ExecuteCmd !NPM_CMD! install --development
+  echo Handling node.js install.
+  echo Handling node.js install.
+  echo Handling node.js install.
+  call :ExecuteCmd !NPM_CMD! install
   IF !ERRORLEVEL! NEQ 0 goto error
 
   echo Handling node.js bower install.
