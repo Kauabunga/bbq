@@ -12,6 +12,9 @@ install:
 services: mongodb
 before_deploy:
 - grunt build
+- rm -rf node_modules client/bower_components .tmp
+- rm -rf platforms
+- rm -rf client server e2e
 deploy:
 - provider: heroku
   app: acc-bbq-dev
