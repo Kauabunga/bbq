@@ -111,7 +111,8 @@
     "npm": "^3.9.5"
   },
   "scripts": {
-    "start": "node server",
+    "start": "grunt serve",
+    "start:dist": "grunt serve:dist",
     "bower": "bower install",
     "build": "rimraf ./dist && grunt build",
     "heroku": "npm run build && grunt buildcontrol:heroku",

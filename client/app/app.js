@@ -30,8 +30,6 @@
     })
     .run(function(toastService, $log, $timeout, $rootScope, $state, $localStorage){
 
-      $log.debug('Test app change');
-
       const ACTIVATE_TOAST_THROTTLE_TIME = 1000 * 60 * 10; //10mins
       let addBodyClass = _.once(() => angular.element(document.body).toggleClass('fade-in', true));
       let hideSplashScreen = _.throttle(() => isCordovaSplashScreen() ? navigator.splashscreen.hide() : undefined, 416, true);
