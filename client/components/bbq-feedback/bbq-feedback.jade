@@ -24,17 +24,17 @@
       md-input-container.optional
         label
         input(name='name' ng-model='name' autocomplete='off',
-        placeholder='{{namePlaceholder}}', ng-init='namePlaceholder = "Add details (Optional)"' ng-click='showDetails = namePlaceholder = "Name"')
+        placeholder='Name')
 
-      md-input-container.optional(ng-if='showDetails')
+      md-input-container.optional
         label
         input(name='contact' ng-model='contact' autocomplete='off',
         placeholder='Contact')
 
-      md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid}')
+      md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid && !submitting}')
         span(ng-hide='submitting') Submit
           right-arrow-svg
-        md-progress-circular.white-progress(ng-show='submitting' md-mode='indeterminate')
+        md-progress-circular.white-progress(ng-show='submitting' md-diameter='30' md-mode='indeterminate')
 
 
 
