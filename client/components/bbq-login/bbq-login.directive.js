@@ -15,6 +15,14 @@ angular.module('bbqApp')
 
           scope.state = $localStorage.loginState = $localStorage.loginState || {};
 
+          if(scope.state.successfulTokenSent){
+            scope.currentTokenTimeoutHandler = $timeout(() => {
+              scope.tokenTimedout = true;
+              scope.successfulResentToken = false;
+            }, TOKEN_TIMEOUT);
+          }
+
+
           scope.submitToken = _.throttle(submitToken, 2000, true);
           scope.submitEmail = submitEmail;
           scope.resendTokenEmail = _.throttle(resendTokenEmail, 2000, true);
@@ -92,7 +100,10 @@ angular.module('bbqApp')
 
                 scope.state.email = email;
 
-                $timeout(() => {
+                scope.tokenTimedout = false;
+                $timeout.cancel(scope.currentTokenTimeoutHandler);
+
+                scope.currentTokenTimeoutHandler = $timeout(() => {
                   scope.tokenTimedout = true;
                   scope.successfulResentToken = false;
                   $timeout(() => analyticsService.trackEvent('Login email success', email));
@@ -109,6 +120,7 @@ angular.module('bbqApp')
         }
 
         function resendTokenEmail(email){
+          $log.debug('resendTokenEmail', email);
           if(! scope.submitting && ! scope.successfulResentToken){
             scope.submitting = true;
             scope.submittingSecondToken = true;
@@ -117,7 +129,8 @@ angular.module('bbqApp')
                 $log.debug('response ', response, scope.emailRegisterForm);
                 scope.successfulResentToken = true;
                 scope.tokenTimedout = false;
-                $timeout(() => {
+                $timeout.cancel(scope.currentTokenTimeoutHandler);
+                scope.currentTokenTimeoutHandler = $timeout(() => {
                   scope.successfulResentToken = false;
                   scope.tokenTimedout = true;
                 }, TOKEN_TIMEOUT);
@@ -138,7 +151,7 @@ angular.module('bbqApp')
           if(response && response.status <= 0){
             toastService.errorToast('You need to be online to login');
           }
-          else if(response.status !== 401) {
+          else if(response && response.status !== 401) {
             toastService.errorToast((response.data && response.data.message) || 'Something went wrong. Please try again.');
           }
 

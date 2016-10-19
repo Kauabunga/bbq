@@ -114,7 +114,9 @@
   "scripts": {
     "start": "node server",
     "e2e": "grunt test:e2e",
-    "bower": "bower install",
+    "start": "grunt serve",
+    "start:dist": "grunt serve:dist",
+    "bower": "bower install --force",
     "build": "rimraf ./dist && grunt build",
     "heroku": "npm run build && grunt buildcontrol:heroku",
     "android-dev": "npm run build && cordova run android",

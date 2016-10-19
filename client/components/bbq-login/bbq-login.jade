@@ -6,14 +6,14 @@
 
     .title.login-title
       .title-container.login-title-container
-        h1 Feedback Login
+        h1 ACCtion login
 
 
     form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, state.email)' novalidate='' autocomplete='off')
 
       md-input-container
         label
-        input(name='email' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
+        input(name='email' md-no-asterisk='true' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
         placeholder='Enter your acc email')
 
@@ -24,10 +24,10 @@
           div(ng-message='domain') {{emailRegisterForm.email.$error.domain}}
 
 
-      md-button(type='submit', ng-class='{"bold-button": ! emailRegisterForm.email.$error.pattern && ! emailRegisterForm.email.$error.required}')
+      md-button(type='submit', ng-class='{"bold-button": ! emailRegisterForm.email.$error.pattern && ! emailRegisterForm.email.$error.required && ! submitting}')
         span(ng-hide='submitting') Next
           right-arrow-svg
-        md-progress-circular(ng-show='submitting' ng-class='{"white-progress": ! emailRegisterForm.email.$error.pattern && ! emailRegisterForm.email.$error.required}' md-mode='indeterminate')
+        md-progress-circular(ng-show='submitting' ng-class='{"white-progress": ! emailRegisterForm.email.$error.pattern && ! emailRegisterForm.email.$error.required}' md-diameter='30' md-mode='indeterminate')
 
 
 
@@ -56,7 +56,7 @@
     form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, state.registerToken)', novalidate, autocomplete='off')
       md-input-container
         label
-        input.token-input(name='registerToken' ng-model='state.registerToken', required='true', type='number', autocomplete='off'
+        input.token-input(name='registerToken' md-no-asterisk='true' ng-model='state.registerToken', required='true', type='number', autocomplete='off'
           ng-minlength='5' ng-maxlength='5' maxlength='5', pattern='[0-9]*' inputmode='numeric'
           ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
           placeholder='Enter the 5 digit code')
@@ -68,17 +68,17 @@
           div(ng-message='maxlength') You have entered too many digits
           div(ng-message='token') That token did not match the one we sent
 
-      md-button(type='submit', ng-class='{"bold-button": (registerToken + "").length === 5}')
+      md-button(type='submit', ng-class='{"bold-button": (registerToken + "").length === 5 && !submittingFirstToken}')
         span(ng-hide='submittingFirstToken') Login
           right-arrow-svg
-        md-progress-circular(ng-show='submittingFirstToken' ng-class='{"white-progress": (registerToken + "").length === 5}' md-mode='indeterminate')
+        md-progress-circular(ng-show='submittingFirstToken' ng-class='{"white-progress": (registerToken + "").length === 5}' md-diameter='30' md-mode='indeterminate')
 
 
 
       md-content(ng-if='tokenTimedout')
-        md-button.link-button.grey-button(type='button', ng-click='resendTokenEmail(email)')
+        md-button.link-button.grey-button(type='button', ng-click='resendTokenEmail(state.email)')
           span(ng-hide='submittingSecondToken') Please send me another email
-          md-progress-circular(ng-show='submittingSecondToken' md-mode='indeterminate')
+          md-progress-circular(ng-show='submittingSecondToken' md-diameter='30' md-mode='indeterminate')
 
 
       md-content(ng-if='successfulResentToken')
