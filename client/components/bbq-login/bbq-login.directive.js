@@ -23,6 +23,7 @@ angular.module('bbqApp')
           }
 
 
+          scope.flashInput = _.throttle(flashInput, 700, true);
           scope.submitToken = _.throttle(submitToken, 2000, true);
           scope.submitEmail = _.throttle(submitEmail, 2000, true);
           scope.resendTokenEmail = _.throttle(resendTokenEmail, 2000, true);
@@ -36,10 +37,14 @@ angular.module('bbqApp')
         }
 
         function edit(){
+
           return reset();
         }
 
         function reset(){
+          scope.tokenTimedout = false;
+          scope.successfulResentToken = false;
+
           scope.state.successfulTokenSent = false;
         }
 
@@ -83,10 +88,20 @@ angular.module('bbqApp')
           $state.go('main',{},{ location:'replace' });
         }
 
+
+        function flashInput(){
+          if(! scope['emailFlashActive']){
+            scope['emailFlashActive'] = true;
+            $timeout.cancel(scope['emailFlashActivetimeout']);
+            scope['emailFlashActivetimeout'] = $timeout(() => scope['emailFlashActive'] = false, 200);
+          }
+        }
+
         function submitEmail(form, email){
 
           if( ! email || form.$invalid ){
             form.isEmailFocused = false;
+            scope.flashInput();
           }
           else if(! scope.submitting ){
 

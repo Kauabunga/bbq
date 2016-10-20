@@ -13,7 +13,7 @@
 
     form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, state.email)' novalidate='' autocomplete='off')
 
-      md-input-container
+      md-input-container(ng-class='{"flash": emailFlashActive}')
         label
         input(name='email' md-no-asterisk='true' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
@@ -63,7 +63,7 @@
           ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',
           placeholder='Enter the 5 digit code')
 
-        div(ng-show='(tokenRegisterForm.$submitted)'
+        div(ng-show='tokenRegisterForm.$submitted && tokenRegisterForm.isRegisterTokenFocused)'
         ng-messages="tokenRegisterForm.registerToken.$error")
           div(ng-message='required') You need to enter the code we sent you.
           div(ng-message='minlength') You haven't quite entered 5 digits

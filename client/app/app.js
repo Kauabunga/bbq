@@ -17,10 +17,11 @@
     'angulartics',
     'angulartics.google.analytics'
   ])
-    .config(function($urlRouterProvider, $compileProvider, $locationProvider, $logProvider, dist) {
+    .config(function($mdThemingProvider, $urlRouterProvider, $compileProvider, $locationProvider, $logProvider, dist) {
       $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(false);
+
 
       if(dist){
         $compileProvider.debugInfoEnabled(false);

@@ -14,9 +14,7 @@ bbq-login {
     left: 10px;
   }
 
-  .tion {
 
-  }
 
   .container .inner-container {
     max-width: 400px;
@@ -47,6 +45,13 @@ bbq-login {
       svg {
         color: @dark-grey;
       }
+    }
+  }
+
+  md-input-container {
+    transition: opacity 300ms ease;
+    &.flash {
+      opacity: 0.5;
     }
   }
 

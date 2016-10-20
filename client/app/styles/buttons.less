@@ -42,8 +42,18 @@ button.md-button:not(.md-icon-button):not(.menu-button) {
 
     &:hover,
     &:focus {
+      body.login & {
+        background-color: @blue;
+      }
       background-color: @blue;
     }
+  }
+
+  &:focus {
+    body.login & {
+      background-color: #eaeaea;
+    }
+    background-color: @light-grey;
   }
 
 
