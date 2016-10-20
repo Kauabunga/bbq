@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService) {
+  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService, toastService) {
     return {
       templateUrl: 'components/bbq-feedback/bbq-feedback.html',
       restrict: 'EA',
@@ -18,6 +18,7 @@ angular.module('bbqApp')
 
           if(form.$invalid){
             form.isFeedbackFocused = false;
+            toastService.errorToast('You need fill our some feedback');
           }
           else if(form.$valid && ! scope.submitting && feedback){
 
@@ -29,7 +30,7 @@ angular.module('bbqApp')
             return feedbackService.encryptAndSendFeedback(feedbackObject)
               .then(() => {
                 scope.successful = true;
-                scope.feedbackSuccessTitle = 'Your feedback has been sent.';
+                scope.feedbackSuccessTitle = 'We\'ll be in touch within two working days.';
               })
               .catch((response) => {
 

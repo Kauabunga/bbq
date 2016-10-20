@@ -6,7 +6,9 @@
 
     .title.login-title
       .title-container.login-title-container
-        h1 ACCtion login
+        h1
+          | Welcome to ACC
+          span.tion tion
 
 
     form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, state.email)' novalidate='' autocomplete='off')
@@ -15,7 +17,7 @@
         label
         input(name='email' md-no-asterisk='true' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
-        placeholder='Enter your acc email')
+        placeholder='Please enter your acc email')
 
         div(ng-show='(emailRegisterForm.$submitted) && ! emailRegisterForm.isEmailFocused'
         ng-messages="emailRegisterForm.email.$error")

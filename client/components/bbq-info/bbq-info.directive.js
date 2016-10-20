@@ -10,7 +10,16 @@ angular.module('bbqApp')
         return init();
 
         function init(){
+          scope.isLoggedIn = Auth.isLoggedIn;
+          scope.gotoStart = gotoStart;
+          scope.gotoLogin = gotoLogin;
+        }
 
+        function gotoStart(){
+          $state.go('main');
+        }
+        function gotoLogin(){
+          $state.go('login');
         }
 
       }

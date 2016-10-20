@@ -64,6 +64,9 @@ export function create(req, res, next) {
       else { return newUser.save(); }
     })
     .catch(err => {
+
+      console.error('Error creating new user', err);
+
       //User already exists - two requests came through attempting to create the same user
       return User.findOne({ email }).exec();
     })

@@ -26,7 +26,7 @@ var UserSchema = new Schema({
   password: String,
   provider: String,
   salt: String,
-
+  successfulTokenSend: Boolean,
   lastTokenCreatedDate: Date
 });
 
@@ -178,7 +178,7 @@ UserSchema.methods = {
 
         //Throttle sending tokens to 1 every minute
         //Debounce sending an email to 1 every 5 seconds in memory
-        if(user.isThrottledToken() || debounceEmailInMemory(this.email)) {
+        if((user.isThrottledToken() || debounceEmailInMemory(this.email)) && user.successfulTokenSend ) {
           return Promise.resolve(user);
         }
         else {
@@ -194,6 +194,7 @@ UserSchema.methods = {
         })
         .then(() => {
           //Update user if successful
+          user.successfulTokenSend = true;
           return user.save();
         });
       });

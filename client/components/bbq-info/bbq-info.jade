@@ -5,12 +5,35 @@
 
     .title.small-title.grey-title
       .title-container
-        h1 (Work in progress)
+        h1 Here are a few points to help you with&nbsp;ACCtion
 
     form
 
-      md-button What kind of feedback should I send?
+      p The customer information you enter is:
+      ul
+        li Kept secure and private
+        li Only sent to ACC Team
+        li Resolution who will respond within 2 working days
 
-      md-button How do I add Fixit to my homescreen?
+      p To be a great ACC ambassador:
+      ul
+        li Actively listen
+        li Capture essential information
 
-      md-button How do I use speech to text?
+      br
+      p.contact-number
+        strong Claims helpline
+        a(href="tel:0800 101 996") 0800 101 996
+      p.contact-number
+        strong Business helpline
+        a(href="tel:0800 222 776") 0800 222 776
+      p.contact-number
+        strong Provider helpline
+        a(href="tel:0800 222 070") 0800 222 070
+      p.contact-number
+        strong Customer resolutions
+        a(href="tel:0800 650 222") 0800 650 222
+
+      br
+      md-button.bold-button(type='button', ng-if='isLoggedIn()', ng-click='gotoStart()') Start
+      md-button.bold-button(type='button', ng-if='! isLoggedIn()', ng-click='gotoLogin()') Login
