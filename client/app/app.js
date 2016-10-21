@@ -17,7 +17,7 @@
     'angulartics',
     'angulartics.google.analytics'
   ])
-    .config(function($mdThemingProvider, $urlRouterProvider, $compileProvider, $locationProvider, $logProvider, dist) {
+    .config(function($mdThemingProvider, $mdGestureProvider, $urlRouterProvider, $compileProvider, $locationProvider, $logProvider, dist) {
       $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(false);
@@ -27,6 +27,10 @@
         $compileProvider.debugInfoEnabled(false);
         $logProvider.debugEnabled(false);
       }
+      // For mobile devices without jQuery loaded, do not
+      // intercept click events during the capture phase.
+      $mdGestureProvider.skipClickHijack();
+
 
     })
     .run(function(toastService, $log, $timeout, $rootScope, $state, $localStorage){

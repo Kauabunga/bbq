@@ -34,6 +34,8 @@ angular.module('bbqApp')
           //     email address should ideally not be cached in url / storage
           document.addEventListener('backbutton', onBackKeyDown, false);
           scope.$on('$destroy', () => document.removeEventListener('backbutton', onBackKeyDown));
+
+
         }
 
         function edit(){
@@ -59,6 +61,7 @@ angular.module('bbqApp')
 
           if( ! scope.state.email || ! registerToken || form.$invalid ){
             form.isRegisterTokenFocused = false;
+            scope.flashInput('tokenFlashActive');
           }
           else if(! scope.submitting) {
             scope.submitting = true;
@@ -76,6 +79,16 @@ angular.module('bbqApp')
             })
             .catch(err => {
               handleErrorResponse(err);
+
+              let first = 0;
+              let watcher = scope.$watch('state.registerToken', () => {
+                if(first > 0){
+                  form.registerToken.$error.token = false;
+                  watcher();
+                }
+                first++
+              });
+
               scope.submitting = false;
               scope.authenticated = false;
               form.registerToken.$error.token = true;
@@ -89,11 +102,13 @@ angular.module('bbqApp')
         }
 
 
-        function flashInput(){
-          if(! scope['emailFlashActive']){
-            scope['emailFlashActive'] = true;
-            $timeout.cancel(scope['emailFlashActivetimeout']);
-            scope['emailFlashActivetimeout'] = $timeout(() => scope['emailFlashActive'] = false, 200);
+        function flashInput(prop){
+          if(! scope[prop]){
+            scope[prop] = true;
+            $timeout.cancel(scope[prop + 'timeout']);
+            scope[prop + 'timeout'] = $timeout(() => {
+              scope[prop] = false;
+              } , 800);
           }
         }
 
@@ -101,36 +116,38 @@ angular.module('bbqApp')
 
           if( ! email || form.$invalid ){
             form.isEmailFocused = false;
-            scope.flashInput();
+            scope.flashInput('emailFlashActive');
           }
           else if(! scope.submitting ){
 
             $timeout(() => analyticsService.trackEvent('Login email attempt', email));
 
             scope.submitting = true;
-            return Auth.sendTokenEmail({email})
-              .then(response => {
-                $log.debug('response ', response, scope.emailRegisterForm);
-                scope.state.successfulTokenSent = true;
+            return $timeout(() => {
+              return Auth.sendTokenEmail({email})
+                .then(response => {
+                  $log.debug('response ', response, scope.emailRegisterForm);
+                  scope.state.successfulTokenSent = true;
 
-                scope.state.email = email;
+                  scope.state.email = email;
 
-                scope.tokenTimedout = false;
-                $timeout.cancel(scope.currentTokenTimeoutHandler);
+                  scope.tokenTimedout = false;
+                  $timeout.cancel(scope.currentTokenTimeoutHandler);
 
-                scope.currentTokenTimeoutHandler = $timeout(() => {
-                  scope.tokenTimedout = true;
-                  scope.successfulResentToken = false;
-                  $timeout(() => analyticsService.trackEvent('Login email success', email));
-                }, TOKEN_TIMEOUT);
-              })
-              .catch(response => {
-                $timeout(() => analyticsService.trackEvent('Login email failure', email));
-                return handleErrorResponse(response);
-              })
-              .finally(() => {
-                scope.submitting = false;
-              });
+                  scope.currentTokenTimeoutHandler = $timeout(() => {
+                    scope.tokenTimedout = true;
+                    scope.successfulResentToken = false;
+                    $timeout(() => analyticsService.trackEvent('Login email success', email));
+                  }, TOKEN_TIMEOUT);
+                })
+                .catch(response => {
+                  $timeout(() => analyticsService.trackEvent('Login email failure', email));
+                  return handleErrorResponse(response);
+                })
+                .finally(() => {
+                  scope.submitting = false;
+                });
+            }, 0);
           }
         }
 
@@ -167,6 +184,10 @@ angular.module('bbqApp')
             toastService.errorToast('You need to be online to login');
           }
           else if(response && response.status !== 401) {
+            if(response.data && response.data.message){
+              scope.flashInput('emailFlashActive');
+              scope.flashInput('tokenFlashActive');
+            }
             toastService.errorToast((response.data && response.data.message) || 'Something went wrong. Please try again.');
           }
 

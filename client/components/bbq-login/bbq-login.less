@@ -1,6 +1,12 @@
 
 
 
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: .1; }
+  100% { opacity: 1; }
+}
+
 
 bbq-login {
 
@@ -49,9 +55,8 @@ bbq-login {
   }
 
   md-input-container {
-    transition: opacity 300ms ease;
     &.flash {
-      opacity: 0.5;
+      animation: flash ease-in-out .4s;
     }
   }
 
@@ -74,3 +79,4 @@ bbq-login {
 
 
 }
+
