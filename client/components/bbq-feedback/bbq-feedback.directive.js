@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bbqApp')
-  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService, toastService) {
+  .directive('bbqFeedback', function (Auth, $state, $log, $http, Util, feedbackService, toastService, $timeout) {
     return {
       templateUrl: 'components/bbq-feedback/bbq-feedback.html',
       restrict: 'EA',
@@ -10,6 +10,7 @@ angular.module('bbqApp')
         return init();
 
         function init(){
+          scope.flashInput = _.throttle(flashInput, 700, true);
           scope.submitFeedback = submitFeedback;
           scope.resetFeedback = resetFeedback;
         }
@@ -19,6 +20,7 @@ angular.module('bbqApp')
           if(form.$invalid){
             form.isFeedbackFocused = false;
             toastService.errorToast('You need fill our some feedback');
+            scope.flashInput('feedbackFlashActive')
           }
           else if(form.$valid && ! scope.submitting && feedback){
 
@@ -50,6 +52,18 @@ angular.module('bbqApp')
               });
           }
         }
+
+
+        function flashInput(prop){
+          if(! scope[prop]){
+            scope[prop] = true;
+            $timeout.cancel(scope[prop + 'timeout']);
+            scope[prop + 'timeout'] = $timeout(() => {
+              scope[prop] = false;
+            } , 800);
+          }
+        }
+
 
         function resetFeedback (){
           scope.feedback = '';

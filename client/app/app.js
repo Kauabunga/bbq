@@ -33,7 +33,7 @@
 
 
     })
-    .run(function(toastService, $log, $timeout, $rootScope, $state, $localStorage){
+    .run(function(toastService, $log, $timeout, Auth, $rootScope, $state, $localStorage){
 
       const ACTIVATE_TOAST_THROTTLE_TIME = 1000 * 60 * 10; //10mins
       let addBodyClass = _.once(() => angular.element(document.body).toggleClass('fade-in', true));
@@ -83,6 +83,7 @@
 
       function handleStateChangeSuccess(){
         $timeout(() => {
+          $rootScope.loggedInState = Auth.isLoggedIn() ? 'logged-in' : 'logged-out';
           $rootScope.currentRoute = $state.current.name;
         });
       }
