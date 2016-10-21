@@ -112,11 +112,25 @@ angular.module('bbqApp')
           }
         }
 
+        function clearOnNextEmailInput(form){
+
+          let first = 0;
+          let watcher = scope.$watch('state.email', () => {
+            if(first > 0){
+              form.email.$error.domain = false;
+              form.email.$error.email = false;
+              watcher();
+            }
+            first++;
+          });
+        }
+
         function submitEmail(form, email){
 
           if( ! email || form.$invalid ){
             form.isEmailFocused = false;
             scope.flashInput('emailFlashActive');
+            clearOnNextEmailInput(form);
           }
           else if(! scope.submitting ){
 
@@ -141,6 +155,7 @@ angular.module('bbqApp')
                   }, TOKEN_TIMEOUT);
                 })
                 .catch(response => {
+                  clearOnNextEmailInput(form);
                   $timeout(() => analyticsService.trackEvent('Login email failure', email));
                   return handleErrorResponse(response);
                 })
