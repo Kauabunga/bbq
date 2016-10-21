@@ -11,15 +11,19 @@
     .menu
 
       .logged-out-menu(ng-if='! isLoggedIn()')
-        md-button.md-icon-button(aria-label='Open info', ng-if='! isInfo()' ng-click='info($event)', )
+        md-button.large-hit-area-button.md-icon-button(aria-label='Open info', ng-if='! isInfo()' ng-click='info($event)', )
           info-svg
-        md-button.md-icon-button(aria-label='Open info', ng-if='isInfo()' ng-click='login($event)', )
+        md-button.large-hit-area-button.md-icon-button(aria-label='Open info', ng-if='isInfo()' ng-click='login($event)', )
           login-svg
 
       md-menu(md-position-mode='target-right target', ng-if='isLoggedIn()')
-        md-button.md-icon-button(aria-label='Open menu', ng-click='$mdOpenMenu($event)')
+        md-button.large-hit-area-button.md-icon-button(aria-label='Open menu', ng-click='$mdOpenMenu($event)')
           menu-svg
         md-menu-content(width='3')
+          md-menu-item
+            md-button.menu-button(ng-click='logout()')
+              logout-svg
+              | Logout
           md-menu-item
             md-button.menu-button(ng-click='reload()')
               refresh-svg
@@ -36,7 +40,3 @@
             md-button.menu-button(ng-click='main()')
               home-svg
               | Home
-          md-menu-item
-            md-button.menu-button(ng-click='logout()')
-              logout-svg
-              | Logout
