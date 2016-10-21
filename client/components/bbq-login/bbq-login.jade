@@ -17,6 +17,7 @@
         label(style="opacity: 0;") Enter your acc email address
         input(name='email' ng-disabled="submitting" md-no-asterisk='true' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
+        ng-model-options="{ allowInvalid: true }"
         placeholder='Please enter your acc email')
 
         div(ng-show='(emailRegisterForm.$submitted) && ! emailRegisterForm.isEmailFocused'
@@ -71,7 +72,7 @@
           div(ng-message='maxlength') You have entered too many digits
           div(ng-message='token') That token did not match the one we sent
 
-      md-button(type='submit', ng-class='{"bold-button": (registerToken + "").length === 5 && !submittingFirstToken}')
+      md-button(type='submit', ng-class='{"bold-button": (state.registerToken + "").length === 5 && ! submittingFirstToken}')
         span(ng-hide='submittingFirstToken') Login
           right-arrow-svg
         md-progress-circular(ng-show='submittingFirstToken' ng-class='{"white-progress": (registerToken + "").length === 5}' md-diameter='30' md-mode='indeterminate')

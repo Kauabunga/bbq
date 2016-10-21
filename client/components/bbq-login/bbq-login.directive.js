@@ -117,8 +117,7 @@ angular.module('bbqApp')
           let first = 0;
           let watcher = scope.$watch('state.email', () => {
             if(first > 0){
-              form.email.$error.domain = false;
-              form.email.$error.email = false;
+              form.$submitted = false;
               watcher();
             }
             first++;
@@ -126,6 +125,8 @@ angular.module('bbqApp')
         }
 
         function submitEmail(form, email){
+
+          scope.state.registerToken = '';
 
           if( ! email || form.$invalid ){
             form.isEmailFocused = false;
