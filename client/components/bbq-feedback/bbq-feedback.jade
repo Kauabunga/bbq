@@ -16,29 +16,29 @@
     form(name='feedbackForm', autocomplete='off' ng-submit='submitFeedback(feedbackForm, feedback, contact, name)' novalidate)
 
       md-input-container.bold(ng-class='{"flash": feedbackFlashActive}')
-        label
-        textarea(name='feedbackName' md-no-asterisk='true' ng-model='feedback' required='true' autocomplete='off',
+        label(style="opacity: 0;" for='feedbackContent') Enter your feedback
+        textarea(name='feedbackContent' md-no-asterisk='true' id="feedbackContent" ng-model='feedback' required='true' autocomplete='off',
         ng-focus='feedbackForm.isFeedbackFocused = true', ng-blur='feedbackForm.isFeedbackFocused = false'
         placeholder='Enter feedback here\n  ...')
 
         div(ng-show='(feedbackForm.$submitted) && ! feedbackForm.isFeedbackFocused'
-        ng-messages="feedbackForm.feedbackName.$error")
+        ng-messages="feedbackForm.feedbackContent.$error")
           div(ng-message='required') You need to enter some feedback
           div(ng-message='feedback') Looks like something went wrong trying to submit your feedback. Try again.
 
 
       md-input-container.optional
-        label
-        input(name='name' ng-model='name' autocomplete='off',
+        label(style="opacity: 0;" for='name') Enter the customers name
+        input(name='name' ng-model='name' id="name" autocomplete='off',
         placeholder='Name')
 
       md-input-container.optional
-        label
-        input(name='contact' ng-model='contact' autocomplete='off',
+        label(style="opacity: 0;" for='contact') Enter the customers contact
+        input(name='contact' id="contact" ng-model='contact' autocomplete='off',
         placeholder='Contact')
 
-      md-checkbox Have ACC contact me
-      md-checkbox Send this anonymously
+      //md-checkbox Have ACC contact me
+      //md-checkbox Send this anonymously
 
       md-button(type='submit', ng-class='{"bold-button": feedbackForm.$valid && !submitting}')
         span(ng-hide='submitting') Send

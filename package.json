@@ -122,7 +122,8 @@
     "android-dev": "npm run build && cordova run android",
     "ios-dev": "npm run build && cordova run ios",
     "test": "echo grunt test --force",
-    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
+    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update",
+    "webdriver-update": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
   "private": true
 }

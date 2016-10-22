@@ -14,8 +14,8 @@
     form(name='emailRegisterForm' ng-submit='submitEmail(emailRegisterForm, state.email)' novalidate='' autocomplete='off')
 
       md-input-container(ng-class='{"flash": emailFlashActive}')
-        label(style="opacity: 0;") Enter your acc email address
-        input(name='email' ng-disabled="submitting" md-no-asterisk='true' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
+        label(style="opacity: 0;" for="email") Enter your acc email address
+        input(name='email' ng-disabled="submitting" id="email" md-no-asterisk='true' ng-model='state.email', required type='email', autocomplete='off', ng-pattern="/^.+@.+\..+$/",
         ng-focus='emailRegisterForm.isEmailFocused = true', ng-blur='emailRegisterForm.isEmailFocused = false',
         ng-model-options="{ allowInvalid: true }"
         placeholder='Please enter your acc email')
@@ -58,8 +58,8 @@
 
     form(name='tokenRegisterForm', ng-submit='submitToken(tokenRegisterForm, state.registerToken)', novalidate, autocomplete='off')
       md-input-container(ng-class='{"flash": tokenFlashActive}')
-        label(style="opacity: 0;") Enter the token sent to your email
-        input.token-input(name='registerToken' md-no-asterisk='true' ng-model='state.registerToken', required='true', type='number', autocomplete='off'
+        label(style="opacity: 0;" for="registerToken") Enter the token sent to your email
+        input.token-input(name='registerToken' id="registerToken" md-no-asterisk='true' ng-model='state.registerToken', required='true', type='number', autocomplete='off'
         ng-minlength='5' ng-maxlength='5' maxlength='5', pattern='[0-9]*' inputmode='numeric',
         ng-disabled="submittingFirstToken"
         ng-focus='tokenRegisterForm.isRegisterTokenFocused = true', ng-blur='tokenRegisterForm.isRegisterTokenFocused = false',

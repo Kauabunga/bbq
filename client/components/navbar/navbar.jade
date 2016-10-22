@@ -4,20 +4,20 @@
 .navbar-container-outer(ng-class='{"fade-in": fadeIn}')
   .navbar-container-inner
 
-    a(href='/#/').logo-container
+    a(href='/#/', tabindex='-1').logo-container
       include ../../assets/svg/logo.svg
 
 
     .menu
 
-      .logged-out-menu(ng-if='! isLoggedIn()')
+      .logged-out-menu(ng-if='! isLoggedIn()' tabindex='2')
         md-button.large-hit-area-button.md-icon-button(aria-label='Open info', ng-if='! isInfo()' ng-click='info($event)', )
           info-svg
         md-button.large-hit-area-button.md-icon-button(aria-label='Open info', ng-if='isInfo()' ng-click='login($event)', )
           login-svg
 
 
-      md-menu(md-position-mode='target-right target', ng-if='isLoggedIn()')
+      md-menu(md-position-mode='target-right target', ng-if='isLoggedIn()' tabindex='2')
         md-button.large-hit-area-button.md-icon-button(aria-label='Open menu', ng-click='$mdOpenMenu($event)')
           menu-svg
 
