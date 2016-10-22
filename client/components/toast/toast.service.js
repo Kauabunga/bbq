@@ -43,7 +43,7 @@ angular.module('bbqApp')
         $mdToast.simple()
           .textContent(message)
           .position('bottom right')
-          .hideDelay(8000)
+          .hideDelay(6000)
       );
     };
 
